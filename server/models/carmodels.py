@@ -1,5 +1,4 @@
 from models import SerializerMixin, validates, db
-# from sqlalchemy.orm import relationship 
 class CarModel(db.Model, SerializerMixin):
     __tablename__ = "car_models"
 

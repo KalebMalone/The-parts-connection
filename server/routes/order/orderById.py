@@ -1,5 +1,6 @@
 from routes.__init__ import Resource, make_response
 from models.orders import Order
+from models.orderdetails import OrderDetail
 
 class OrderByID(Resource):
     def get(self, id):

@@ -1,6 +1,6 @@
-from models.__init__ import db
+from models.__init__ import db, SerializerMixin
 
-class Product(db.Model):
+class Product(db.Model, SerializerMixin):
     __tablename__ = "products"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -11,11 +11,26 @@ class Product(db.Model):
     image_url = db.Column(db.String, nullable=False)
     stock_quantity = db.Column(db.Integer, nullable=False)
 
-    # Removed relationship
-    # category = db.relationship("Category", back_populates="products")
-    # compatibilities = db.relationship("ProductCompatibility", foreign_keys="ProductCompatibility.product_id")
-
-    serialize_rules = ("-category.products", "-product_compatibility.product")
+    serialize_rules = ("-category.products")
 
     def __repr__(self):
-        return f"<Product {self.id}: {self.name}>"
+        return f"""
+            <Product #{self.id}:
+                category_id: {self.category_id}
+                name: {self.name}
+                description: {self.description}
+                image_url: {self.image_url}
+                stock_quantity: {self.stock_quantity}>
+        """
+
+    # If SerializerMixin doesn't automatically provide this, define the `to_dict` method
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "category_id": self.category_id,
+            "name": self.name,
+            "price": self.price,
+            "description": self.description,
+            "image_url": self.image_url,
+            "stock_quantity": self.stock_quantity
+        }

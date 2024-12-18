@@ -1,5 +1,5 @@
 from routes.__init__ import Resource, make_response
-from models.categories import Category
+from models.category import Category
 
 class Categories(Resource):
     def get(self):
