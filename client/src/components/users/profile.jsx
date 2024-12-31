@@ -17,9 +17,7 @@ const Profile = () => {
         return;
       }
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/v1/orders", { // Correct URL here
-          method: "GET",
-          credentials: "include", // Ensure credentials (cookies) are sent
+        const response = await fetch("/api/v1/orders", { // Correct URL here
         });
   
         if (!response.ok) {

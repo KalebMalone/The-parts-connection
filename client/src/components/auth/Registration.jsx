@@ -68,9 +68,10 @@ const Registration = () => {
                         const data = await response.json();
                         if (response.ok) {
                             toast.success(
-                                isLogin ? `Welcome back, ${data.username}!` : `Welcome, ${data.username}!`
+                                isLogin ? `Welcome back, ${data.user.name}!` : `Welcome, ${data.user.name}!`
                             );
-                            updateUser(data);
+                            console.log(data.user)
+                            updateUser(data.user);
                             navigate("/"); // Redirect to home after successful login/signup
                         } else {
                             toast.error(data.error || "Something went wrong!");  // Show the error message returned from Flask
