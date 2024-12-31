@@ -101,9 +101,17 @@ const Header = ({ currentUser, updateUser }) => {
     navigate('/'); // Redirect to homepage or login page
   };
 
+  const handleProfileClick = () => {
+    if (currentUser) {
+      navigate('/profile'); // Navigate to profile if user is logged in
+    } else {
+      navigate('/signup'); // Redirect to signup page if user is not logged in
+    }
+  };
+
   return (
     <Navbar>
-      <Logo to="/">My Car Parts Store</Logo>
+      <Logo to="/">German Auto</Logo>
       <NavLinks>
         <SearchBar
           type="text"
@@ -112,11 +120,12 @@ const Header = ({ currentUser, updateUser }) => {
           onChange={handleSearchChange}
         />
         <Icon to="/cart">🛒</Icon> {/* Link for cart */}
-        <Icon to="/profile">👤</Icon> {/* Link to profile page */}
+        <Icon as="div" onClick={handleProfileClick}>👤</Icon> {/* Clickable profile */}
         {currentUser && <LogoutButton onClick={handleLogout}>Logout</LogoutButton>} {/* Display logout button only if user is logged in */}
       </NavLinks>
     </Navbar>
   );
 };
+
 
 export default Header;

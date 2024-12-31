@@ -1,33 +1,31 @@
-import { Outlet } from 'react-router-dom'
-import Header from './components/navigation/Header'
-import { Toaster } from "react-hot-toast"
-import { useState, useEffect } from "react"
-import React from 'react'
+import React, { useState } from 'react';
+import { CartProvider } from './contexts/CartContext';  
+import Header from './components/navigation/Header';
+import { Toaster } from 'react-hot-toast';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(() => {
-    // Load currentUser from localStorage on app load
-    const storedUser = localStorage.getItem("currentUser");
+    const storedUser = localStorage.getItem('currentUser');
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
   const updateUser = (value) => {
     setCurrentUser(value);
     if (value) {
-      localStorage.setItem("currentUser", JSON.stringify(value)); // Store updated user in localStorage
+      localStorage.setItem('currentUser', JSON.stringify(value));
     } else {
-      localStorage.removeItem("currentUser"); // Remove user from localStorage when logged out
+      localStorage.removeItem('currentUser');
     }
-  }
+  };
 
   return (
-    <>
-      {/* <GlobalStyle /> */}
+    <CartProvider>
       <Header currentUser={currentUser} updateUser={updateUser} />
       <Toaster />
       <Outlet context={{ currentUser, updateUser }} />
-    </>
-  )
+    </CartProvider>
+  );
 }
 
 export default App;

@@ -109,7 +109,7 @@ const Home = () => {
         { name: 'RS7', brand: 'AUDI', year: 2022 },
     ];
 
-    const years = [...new Set(carData.map((car) => car.year))];
+    // const years = [...new Set(carData.map((car) => car.year))];
     const brands = [...new Set(carData.map((car) => car.brand))];
 
     const formik = useFormik({
@@ -119,9 +119,9 @@ const Home = () => {
             model: '',
         },
         validationSchema: Yup.object({
-            year: Yup.string().required('Make is required'),
-            brand: Yup.string().required('Model is required'),
-            model: Yup.string().required('Series is required'),
+            year: Yup.string().required('Year is required'),
+            brand: Yup.string().required('Brand is required'),
+            model: Yup.string().required('Model is required'),
         }),
         onSubmit: (values) => {
             window.location.href = `/categories?year=${values.year}&brand=${values.brand}&model=${values.model}`;
@@ -131,10 +131,17 @@ const Home = () => {
     const models = carData
         .filter(
             (car) =>
-                car.brand === formik.values.brand &&
-                car.year.toString() === formik.values.year
+                car.brand === formik.values.brand
         )
         .map((car) => car.name);
+
+    const filteredYears = carData
+        .filter(
+            (car) =>
+                car.brand === formik.values.brand &&
+                car.name === formik.values.model
+        )
+        .map((car) => car.year);
 
     return (
         <Container>
@@ -146,40 +153,17 @@ const Home = () => {
 
             <FilterSection>
                 <FilterForm onSubmit={formik.handleSubmit}>
-                    {/* Make */}
+                    {/* Audi (Brand) */}
                     <FilterGroup>
-                        <Label htmlFor="year">MAKE</Label>
-                        <Select
-                            id="year"
-                            name="year"
-                            value={formik.values.year}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        >
-                            <option value="">Select Make</option>
-                            {years.map((year) => (
-                                <option key={year} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </Select>
-                        {formik.touched.year && formik.errors.year && (
-                            <ErrorMessage>{formik.errors.year}</ErrorMessage>
-                        )}
-                    </FilterGroup>
-
-                    {/* Model */}
-                    <FilterGroup>
-                        <Label htmlFor="brand">MODEL</Label>
+                        <Label htmlFor="brand">AUDI</Label>
                         <Select
                             id="brand"
                             name="brand"
                             value={formik.values.brand}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            disabled={!formik.values.year}
                         >
-                            <option value="">Select Model</option>
+                            <option value="">Select Audi</option>
                             {brands.map((brand) => (
                                 <option key={brand} value={brand}>
                                     {brand}
@@ -191,9 +175,9 @@ const Home = () => {
                         )}
                     </FilterGroup>
 
-                    {/* Series */}
+                    {/* Model */}
                     <FilterGroup>
-                        <Label htmlFor="model">SERIES</Label>
+                        <Label htmlFor="model">MODEL</Label>
                         <Select
                             id="model"
                             name="model"
@@ -202,7 +186,7 @@ const Home = () => {
                             onBlur={formik.handleBlur}
                             disabled={!formik.values.brand}
                         >
-                            <option value="">Select Series</option>
+                            <option value="">Select Model</option>
                             {models.map((model) => (
                                 <option key={model} value={model}>
                                     {model}
@@ -211,6 +195,29 @@ const Home = () => {
                         </Select>
                         {formik.touched.model && formik.errors.model && (
                             <ErrorMessage>{formik.errors.model}</ErrorMessage>
+                        )}
+                    </FilterGroup>
+
+                    {/* Year */}
+                    <FilterGroup>
+                        <Label htmlFor="year">YEAR</Label>
+                        <Select
+                            id="year"
+                            name="year"
+                            value={formik.values.year}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            disabled={!formik.values.model}
+                        >
+                            <option value="">Select Year</option>
+                            {filteredYears.map((year) => (
+                                <option key={year} value={year}>
+                                    {year}
+                                </option>
+                            ))}
+                        </Select>
+                        {formik.touched.year && formik.errors.year && (
+                            <ErrorMessage>{formik.errors.year}</ErrorMessage>
                         )}
                     </FilterGroup>
 

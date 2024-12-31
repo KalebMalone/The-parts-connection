@@ -1,17 +1,21 @@
-from models.__init__ import db, SerializerMixin
+from models import db
 
-class Product(db.Model, SerializerMixin):
+class Product(db.Model):
     __tablename__ = "products"
 
     id = db.Column(db.Integer, primary_key=True)
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
     name = db.Column(db.String, nullable=False)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
     description = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String, nullable=False)
     stock_quantity = db.Column(db.Integer, nullable=False)
 
-    serialize_rules = ("-category.products")
+    # Relationship with Category
+    category = db.relationship("Category", back_populates="products")
+    
+    # Relationship with OrderDetail (Many-to-Many relationship)
+    order_details = db.relationship("OrderDetail", back_populates="product")
 
     def __repr__(self):
         return f"""
@@ -20,10 +24,10 @@ class Product(db.Model, SerializerMixin):
                 name: {self.name}
                 description: {self.description}
                 image_url: {self.image_url}
-                stock_quantity: {self.stock_quantity}>
+                stock_quantity: {self.stock_quantity}
+            >
         """
 
-    # If SerializerMixin doesn't automatically provide this, define the `to_dict` method
     def to_dict(self):
         return {
             "id": self.id,

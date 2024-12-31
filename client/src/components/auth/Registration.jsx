@@ -73,7 +73,7 @@ const Registration = () => {
                             updateUser(data);
                             navigate("/"); // Redirect to home after successful login/signup
                         } else {
-                            toast.error(data.error);  // Show the error message returned from Flask
+                            toast.error(data.error || "Something went wrong!");  // Show the error message returned from Flask
                         }
                     } catch (error) {
                         toast.error("Something went wrong!");
@@ -126,6 +126,7 @@ const Registration = () => {
         </Container>
     );
 };
+
 
 export default Registration;
 

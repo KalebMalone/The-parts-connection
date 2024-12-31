@@ -1,107 +1,75 @@
 import React from 'react';
+import { useCart } from '../../contexts/CartContext';
 import styled from 'styled-components';
 
-// ProductCard Component
-const ProductsCard = ({ product }) => {
-  // Fallback image if no product image is provided
-  const productImage = product.image || '/images/default-product.png';
+const ProductCard = ({ product }) => {
+    const { addToCart } = useCart();  // Access addToCart from the context
 
-  return (
-    <Card>
-      <ImageContainer>
-        <ProductImage src={productImage} alt={product.name} />
-      </ImageContainer>
+    const handleAddToCart = () => {
+        addToCart(product);  // Add the product to the cart
+    };
 
-      <CardContent>
-        <ProductTitle>{product.name}</ProductTitle>
-        <ProductDescription>{product.description}</ProductDescription>
-        <Price>${product.price.toFixed(2)}</Price>
-
-        <Button>Add to Cart</Button>
-      </CardContent>
-    </Card>
-  );
+    return (
+        <CardContainer>
+            <ProductImage src={product.image} alt={product.name} />
+            <ProductDetails>
+                <ProductName>{product.name}</ProductName>
+                <ProductPrice>${product.price}</ProductPrice>
+                <AddToCartButton onClick={handleAddToCart}>
+                    Add to Cart
+                </AddToCartButton>
+            </ProductDetails>
+        </CardContainer>
+    );
 };
 
-// Styled components for dynamic styling
-const Card = styled.div`
-  background-color: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 300px;
-  margin: 15px;
-  cursor: pointer;
+export default ProductCard;
 
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
+const CardContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background-color: #f5f5f5;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
   object-fit: cover;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
-const CardContent = styled.div`
-  padding: 20px;
+const ProductDetails = styled.div`
+  display: flex;
+  flex-direction: column;
   text-align: center;
 `;
 
-const ProductTitle = styled.h3`
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+const ProductName = styled.h3`
+  font-size: 1.2rem;
+  margin-top: 10px;
 `;
 
-const ProductDescription = styled.p`
+const ProductPrice = styled.p`
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 15px;
-  height: 60px; /* Ensure description is limited to a specific height */
-  overflow: hidden;
+  color: #555;
+  margin: 5px 0;
 `;
 
-const Price = styled.p`
-  font-size: 1.4rem;
-  color: #007BFF;
-  margin-bottom: 20px;
-  font-weight: bold;
-`;
-
-const Button = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  padding: 12px 20px;
+const AddToCartButton = styled.button`
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px;
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  font-size: 1rem;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #27ae60;
   }
 `;
-
-export default ProductsCard;

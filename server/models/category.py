@@ -1,14 +1,22 @@
-from models.__init__ import SerializerMixin, validates, db
+from models import db, SerializerMixin
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = "categories"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(100), nullable=False)  # Increased length of name for flexibility
 
+    # Serialization rule to exclude the 'categories' attribute in the product serialization
+    serialize_rules = ("-products.categories",)
 
-    serialize_rules=("-products.categories",)
-
+    # Relationship with Product model
+    products = db.relationship("Product", back_populates="category", cascade="all, delete-orphan")
 
     def __repr__(self):
-        return f'<Category {self.id}: {self.name}>'
+        return f'<Category #{self.id}: {self.name}>'
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name
+        }

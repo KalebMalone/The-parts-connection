@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CategoriesList() {
     const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -19,15 +20,18 @@ function CategoriesList() {
         })();
     }, []);
 
+    const handleCategoryClick = (categoryId) => {
+        // Navigate to the products page for this category
+        navigate(`/categories/${categoryId}/products`);
+    };
+
     return (
         <CategoriesContainer>
             <h1>Explore Our Categories</h1>
             <CategoriesGrid>
                 {categories.map((category) => (
-                    <CategoryCard key={category.id}>
-                        <Link to={`/categories/${category.id}`}>
-                            <h2>{category.name}</h2>
-                        </Link>
+                    <CategoryCard key={category.id} onClick={() => handleCategoryClick(category.id)}>
+                        <h2>{category.name}</h2>
                     </CategoryCard>
                 ))}
             </CategoriesGrid>
@@ -37,6 +41,7 @@ function CategoriesList() {
 
 export default CategoriesList;
 
+// Styled components (unchanged)
 const CategoriesContainer = styled.div`
   max-width: 1200px;
   margin: 40px auto;
@@ -57,15 +62,15 @@ const CategoriesContainer = styled.div`
 
 const CategoriesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Increased min-width for larger cards */
-  gap: 40px; /* Increased gap for more space between cards */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 40px;
 `;
 
 const CategoryCard = styled.div`
   background-color: #fff;
   border: 1px solid #f1f1f1;
   border-radius: 12px;
-  padding: 35px; /* Increased padding inside the card */
+  padding: 35px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
@@ -76,19 +81,8 @@ const CategoryCard = styled.div`
     background-color: #fafafa;
   }
 
-  a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #007bff;
-    }
-  }
-
   h2 {
-    font-size: 32px; /* Increased font size */
+    font-size: 32px;
     font-weight: 500;
     color: #333;
     margin: 0;

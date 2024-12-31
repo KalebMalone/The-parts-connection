@@ -1,92 +1,119 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import toast from 'react-hot-toast';
+import styled from 'styled-components';
+import { useCart } from '../../contexts/CartContext'; // Correct relative path
 
-const ProductDetails = () => {
-  const [product, setProduct] = useState(null);
-  const { productId } = useParams();
+function ProductDetails() {
+    const { productId } = useParams();
+    const [product, setProduct] = useState(null);
+    const { addToCart } = useCart(); // Get the addToCart function from context
 
-  useEffect(() => {
-    (async () => {
-      const resp = await fetch(`/api/v1/products/${productId}`);
-      const data = await resp.json();
+    useEffect(() => {
+        (async () => {
+            const resp = await fetch(`/api/v1/products/${productId}`);
+            const data = await resp.json();
 
-      if (resp.ok) {
-        setProduct(data);
-      } else {
-        toast.error(data.error);
-      }
-    })();
-  }, [productId]);
+            if (resp.ok) {
+                setProduct(data);
+            } else {
+                toast.error(data.error);
+            }
+        })();
+    }, [productId]);
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+    const handleAddToCart = (product) => {
+        addToCart(product);
+        toast.success(`${product.name} added to cart!`);
+    };
 
-  return (
-    <Container>
-      <Image src={product.image} alt={product.name} />
-      <Details>
-        <Title>{product.name}</Title>
-        <Price>${product.price}</Price>
-        <Description>{product.description}</Description>
-        <Button>Add to Cart</Button>
-      </Details>
-    </Container>
-  );
-};
+    if (!product) {
+        return <LoadingText>Loading...</LoadingText>;
+    }
+
+    return (
+        <ProductPageWrapper>
+            <ProductContentWrapper>
+                <ProductImage src={product.imageUrl} alt={product.name} />
+                <ProductInfo>
+                    <h1>{product.name}</h1>
+                    <p>{product.description}</p>
+                    <PriceTag>${product.price}</PriceTag>
+                    <AddToCartButton onClick={() => handleAddToCart(product)}>
+                        Add to Cart
+                    </AddToCartButton>
+                </ProductInfo>
+            </ProductContentWrapper>
+        </ProductPageWrapper>
+    );
+}
 
 export default ProductDetails;
 
-const Container = styled.div`
+const ProductPageWrapper = styled.div`
   display: flex;
-  max-width: 1000px;
-  margin: 40px auto;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #f9f9f9;
+`;
+
+const ProductContentWrapper = styled.div`
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
   background-color: #fff;
-  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 30px;
+  width: 100%;
 `;
 
-const Image = styled.img`
-  width: 50%;
-  height: auto;
+const ProductImage = styled.img`
+  max-width: 500px;
+  max-height: 500px;
   object-fit: cover;
   border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-right: 30px;
 `;
 
-const Details = styled.div`
-  flex: 1;
-  padding: 20px;
+const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 600px;
 `;
 
-const Title = styled.h2`
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-`;
-
-const Price = styled.p`
+const PriceTag = styled.p`
   font-size: 1.5rem;
-  color: #007bff;
-  margin-bottom: 20px;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-top: 20px;
+  margin-bottom: 25px;
 `;
 
-const Description = styled.p`
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 30px;
-`;
-
-const Button = styled.button`
-  padding: 15px 30px;
-  background-color: #007bff;
+const AddToCartButton = styled.button`
+  background-color: #3498db;
   color: white;
+  padding: 15px 30px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1.2rem;
+  width: fit-content;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #2980b9;
   }
+`;
+
+const LoadingText = styled.p`
+  font-size: 1.5rem;
+  color: #7f8c8d;
+  text-align: center;
 `;

@@ -2,11 +2,13 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '../components/pages/Home';
 import CategoriesList from '../components/category/CategoriesList';
 import CategoryDetails from '../components/category/CategoryDetails';
+import CategoryProducts from '../components/category/CategoryProducts'; // Import the new component
 import ProductsList from '../components/products/ProductsList';
 import ProductDetails from '../components/products/ProductsDetails';
 import App from '../App';
-import Profile from '../components/users/profile'; // Import Profile component
-import Registration from '../components/auth/Registration'; // Import Registration component (your signup/login page)
+import Profile from '../components/users/profile';
+import Registration from '../components/auth/Registration';
+import Cart from '../components/cart/Cart';
 
 export const router = createBrowserRouter([
     {
@@ -14,7 +16,7 @@ export const router = createBrowserRouter([
         element: <App />,
         children: [
             {
-                index: true, // Default route at "/"
+                index: true,
                 element: <Home />,
             },
             {
@@ -26,21 +28,29 @@ export const router = createBrowserRouter([
                 element: <CategoryDetails />,
             },
             {
-                path: "search",  // This route will handle filters applied from Home
+                path: "categories/:categoryId/products", // New route for category products
+                element: <CategoryProducts />,
+            },
+            {
+                path: "search",
                 element: <ProductsList />,
             },
             {
-                path: "products/:productId", // Dynamic route for product details
+                path: "products/:productId",
                 element: <ProductDetails />,
             },
             {
-                path: "profile",  // Profile route
+                path: "profile",
                 element: <Profile />,
             },
             {
-                path: "signup",  // Registration route
-                element: <Registration />, // Show the Registration component here
-            }
+                path: "signup",
+                element: <Registration />,
+            },
+            {
+                path: "cart",
+                element: <Cart />,
+            },
         ],
     },
 ]);
