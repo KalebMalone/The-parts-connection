@@ -1,0 +1,89 @@
+<!-- welcome_message.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Car Parts App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333333;
+            font-size: 28px;
+            margin: 0;
+        }
+        .content {
+            font-size: 16px;
+            color: #555555;
+            line-height: 1.6;
+        }
+        .content p {
+            margin-bottom: 15px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .footer {
+            font-size: 12px;
+            text-align: center;
+            color: #888888;
+            margin-top: 40px;
+        }
+        .footer p {
+            margin-bottom: 5px;
+        }
+        .footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Car Parts App, {{ user.name }}!</h1>
+        </div>
+        <div class="content">
+            <p>Thank you for signing up! We are thrilled to have you as part of our community. Here are a few things you can do to get started:</p>
+            <ul>
+                <li><strong>Browse our catalog</strong> to find the best car parts for your needs.</li>
+                <li><strong>Add items to your cart</strong> and proceed to checkout when you're ready.</li>
+                <li><strong>Enjoy great deals</strong> and reliable shipping!</li>
+            </ul>
+            <p>If you have any questions, don’t hesitate to contact our support team. We're here to help!</p>
+            <a href="https://www.carpartsapp.com" class="button">Start Shopping Now</a>
+        </div>
+        <div class="footer">
+            <p>If you did not sign up for this account, please  ignore this email.</p>
+            <p>&copy; {{ current_year }} Car Parts App. All rights reserved.</p>
+        </div>
+    </div>
+
+</body>
+</html>

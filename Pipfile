@@ -16,6 +16,8 @@ faker = "*"
 bcrypt = "*"
 flask-bcrypt = "*"
 flask-session = "*"
+flask-mail = "*"
+python-dotenv = "*"
 
 [requires]
 python_full_version = "3.12.3"
