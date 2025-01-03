@@ -4,8 +4,8 @@ class Category(db.Model, SerializerMixin):
     __tablename__ = "categories"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    image_url = db.Column(db.String(255), nullable=True)
+    name = db.Column(db.String(100), nullable=False)  # Increased length of name for flexibility
+    image_url = db.Column(db.String(255), nullable=True)  # New field for image URLs
 
     serialize_rules = ("-products.categories",)
 

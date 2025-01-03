@@ -34,7 +34,7 @@ with app.app_context():
 
     # Seed data for Categories (AUDI parts-related categories)
     category_data = [
-        {"name": "Engine Parts", "image_url": "SS1.png"},
+        {"name": "Engine Parts", "image_url": "image/SS1.png"},
         {"name": "Body Parts", "image_url": "SS2.png"},
         {"name": "Suspension & Steering", "image_url": "SS3.png"},
         {"name": "Interior Accessories", "image_url": "SS4.png"},

@@ -15,6 +15,8 @@ function CategoryCard({ name, id }) {
 
 export default CategoryCard;
 
+export default CategoryCard;
+
 const Card = styled.li`
     background-color: #ffffff;
     border-radius: 12px;
@@ -22,7 +24,7 @@ const Card = styled.li`
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-
+    
     &:hover {
         transform: translateY(-6px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
@@ -37,7 +39,7 @@ const Card = styled.li`
 const CardContent = styled.div`
     padding: 20px;
     text-align: center;
-
+    
     h2 {
         font-size: 24px;
         font-weight: 500;

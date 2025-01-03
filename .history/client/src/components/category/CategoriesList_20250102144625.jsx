@@ -4,39 +4,38 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function CategoriesList() {
-  const [categories, setCategories] = useState([]);
-  const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      const resp = await fetch('/api/v1/categories');
-      const data = await resp.json();
+    useEffect(() => {
+        (async () => {
+            const resp = await fetch('/api/v1/categories');
+            const data = await resp.json();
 
-      if (resp.ok) {
-        setCategories(data);
-      } else {
-        toast.error(data.error);
-      }
-    })();
-  }, []);
+            if (resp.ok) {
+                setCategories(data);
+            } else {
+                toast.error(data.error);
+            }
+        })();
+    }, []);
 
-  const handleCategoryClick = (categoryId) => {
-    navigate(`/categories/${categoryId}/products`);
-  };
+    const handleCategoryClick = (categoryId) => {
+        navigate(`/categories/${categoryId}/products`);
+    };
 
-  return (
-    <CategoriesContainer>
-      <h1>Explore Our Categories</h1>
-      <CategoriesGrid>
-        {categories.map((category) => (
-          <CategoryCard key={category.id} onClick={() => handleCategoryClick(category.id)}>
-            <img src={`/image/${category.image_url}`} alt={category.name} />
-            <h2>{category.name}</h2>
-          </CategoryCard>
-        ))}
-      </CategoriesGrid>
-    </CategoriesContainer>
-  );
+    return (
+        <CategoriesContainer>
+            <h1>Explore Our Categories</h1>
+            <CategoriesGrid>
+                {categories.map((category) => (
+                    <CategoryCard key={category.id} onClick={() => handleCategoryClick(category.id)}>
+                        <h2>{category.name}</h2>
+                    </CategoryCard>
+                ))}
+            </CategoriesGrid>
+        </CategoriesContainer>
+    );
 }
 
 export default CategoriesList;
@@ -73,19 +72,11 @@ const CategoryCard = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
-
+  
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     background-color: #fafafa;
-  }
-
-  img {
-    max-width: 100%;
-    height: 200px; /* Adjust to suit your design */
-    object-fit: cover; /* Ensures the image is cropped to fit */
-    border-radius: 10px;
-    margin-bottom: 20px;
   }
 
   h2 {

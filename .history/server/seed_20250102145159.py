@@ -8,7 +8,6 @@ from models.orderdetails import OrderDetail
 from models.orders import Order
 from models.products import Product
 from models.user import User
-from werkzeug.security import generate_password_hash  # For password hashing
 
 # Drop and recreate all tables
 with app.app_context():
@@ -34,13 +33,21 @@ with app.app_context():
 
     # Seed data for Categories (AUDI parts-related categories)
     category_data = [
-        {"name": "Engine Parts", "image_url": "SS1.png"},
-        {"name": "Body Parts", "image_url": "SS2.png"},
-        {"name": "Suspension & Steering", "image_url": "SS3.png"},
-        {"name": "Interior Accessories", "image_url": "SS4.png"},
-        {"name": "Exterior Accessories", "image_url": "SS5.png"},
-        {"name": "Electrical Parts", "image_url": "SS6.png"}
-    ]
+    {"name": "Engine Parts", "image_url": "SS1.png"},
+    {"name": "Body Parts", "image_url": "SS2.png"},
+    {"name": "Suspension & Steering", "image_url": "SS3.png"},
+    {"name": "Interior Accessories", "image_url": "SS4.png"},
+    {"name": "Exterior Accessories", "image_url": "SS5.png"},
+    {"name": "Electrical Parts", "image_url": "SS6.png"}
+]
+
+for data in category_data:
+    category = Category(**data)
+    db.session.add(category)
+
+db.session.commit()
+print("Seed data inserted successfully!")
+
 
     for data in category_data:
         category = Category(**data)
@@ -52,9 +59,7 @@ with app.app_context():
     ]
 
     for data in user_data:
-        # Hashing the password before saving
-        password_hash = generate_password_hash(data["password"])
-        user = User(name=data["name"], email=data["email"], _password_hash=password_hash)
+        user = User(name=data["name"], email=data["email"], _password_hash=data["password"])
         db.session.add(user)
 
     # Seed data for Products (Enhanced AUDI parts with longer descriptions)
@@ -68,7 +73,7 @@ with app.app_context():
                 "oil cooler kit. Designed specifically for AUDI A3, A4, and Q7 models, this kit "
                 "ensures enhanced oil cooling for better engine reliability during high-performance driving."
             ), 
-            "image_url": "image/performance_oil_cooler.jpg", 
+            "image_url": "performance_oil_cooler.jpg", 
             "stock_quantity": 30
         },
         {
@@ -80,7 +85,7 @@ with app.app_context():
                 "rear diffuser. Engineered for AUDI RS7 and S-line models, this diffuser adds a premium "
                 "touch while improving airflow and stability at high speeds."
             ), 
-            "image_url": "image/carbon_fiber_diffuser.jpg", 
+            "image_url": "carbon_fiber_diffuser.jpg", 
             "stock_quantity": 20
         },
         {
@@ -92,7 +97,7 @@ with app.app_context():
                 "Tailored for AUDI A5 and Q5 models, the kit allows you to customize ride height and damping, "
                 "offering unparalleled control on any road condition."
             ), 
-            "image_url": "image/coilover_suspension.jpg", 
+            "image_url": "coilover_suspension.jpg", 
             "stock_quantity": 15
         }
     ]

@@ -5,7 +5,7 @@ class Category(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    image_url = db.Column(db.String(255), nullable=True)
+    image_url = db.Column(db.String(255), nullable=True)  # Store image file name
 
     serialize_rules = ("-products.categories",)
 
@@ -18,5 +18,5 @@ class Category(db.Model, SerializerMixin):
         return {
             "id": self.id,
             "name": self.name,
-            "image_url": self.image_url
+            "image_url": self.image_url  # Include image URL for API responses
         }

@@ -38,8 +38,8 @@ with app.app_context():
         {"name": "Body Parts", "image_url": "SS2.png"},
         {"name": "Suspension & Steering", "image_url": "SS3.png"},
         {"name": "Interior Accessories", "image_url": "SS4.png"},
-        {"name": "Exterior Accessories", "image_url": "SS5.png"},
-        {"name": "Electrical Parts", "image_url": "SS6.png"}
+        {"name": "Exterior Accessories", "image_url": SS5.png"},
+        {"name": "Electrical Parts", "image_url": "image/SS6.png"}
     ]
 
     for data in category_data:

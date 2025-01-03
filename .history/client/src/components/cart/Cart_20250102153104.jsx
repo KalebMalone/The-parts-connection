@@ -129,7 +129,6 @@ const Cart = () => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>Order created successfully!</p>}
       {cartItems.length === 0 ? (
-        <p></p>
       ) : (
         <div>
           {cartItems.map((item) => (

@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const HeroSection = styled.section`
-  background-image: url('/image/Main.png');
+  background-image: url('/image/one.png');
   background-size: cover;
   background-position: center;
   height: 65vh; /* Adjusted to make form appear higher */
@@ -145,7 +145,7 @@ const Home = () => {
         <Container>
             <HeroSection>
                 <div>
-                    <HeroTitle></HeroTitle>
+                    <HeroTitle>Find the Best Car Parts</HeroTitle>
                 </div>
             </HeroSection>
 
@@ -161,7 +161,7 @@ const Home = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                         >
-                            <option value="">Select make</option>
+                            <option value="">Select </option>
                             {brands.map((brand) => (
                                 <option key={brand} value={brand}>
                                     {brand}

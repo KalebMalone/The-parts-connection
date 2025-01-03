@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function CategoryCard({ name, id }) {
-    return (
-        <Card>
-            <Link to={`/categories/${id}`}>
-                <CardContent>
-                    <h2>{name}</h2>
-                </CardContent>
-            </Link>
-        </Card>
-    );
+  return (
+    <Card>
+      <Link to={`/categories/${id}`}>
+        <CardContent>
+          <h2>{name}</h2>
+        </CardContent>
+      </Link>
+    </Card>
+  );
 }
 
 export default CategoryCard;

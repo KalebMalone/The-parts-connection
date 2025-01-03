@@ -145,7 +145,7 @@ const Home = () => {
         <Container>
             <HeroSection>
                 <div>
-                    <HeroTitle></HeroTitle>
+                    <HeroTitle>Find the Best Car Parts</HeroTitle>
                 </div>
             </HeroSection>
 
