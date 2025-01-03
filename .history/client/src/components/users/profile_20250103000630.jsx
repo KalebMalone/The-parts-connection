@@ -281,11 +281,11 @@ const DeleteButton = styled.button`
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
+
   &:hover {
     background-color: darkred;
   }
 `;
-
 const DeleteProfileButton = styled.button`
   background-color: red;
   color: white;
@@ -298,4 +298,12 @@ const DeleteProfileButton = styled.button`
     background-color: darkred;
   }
 `;
+
+
+
+
+
+
+
+
 export default Profile;

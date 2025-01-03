@@ -281,21 +281,45 @@ const DeleteButton = styled.button`
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
+
   &:hover {
     background-color: darkred;
   }
 `;
 
+
+
 const DeleteProfileButton = styled.button`
+
   background-color: red;
+
   color: white;
+
   border: none;
+
   padding: 14px;
+
   border-radius: 6px;
+
   cursor: pointer;
+
   margin-top: 2rem;
+
+
+
   &:hover {
+
     background-color: darkred;
+
   }
+
 `;
+
+
+
+
+
+
+
+
 export default Profile;

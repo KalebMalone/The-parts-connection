@@ -4,19 +4,21 @@ import styled from "styled-components";
 
 const Profile = () => {
   const { currentUser, updateUser } = useOutletContext();
-  const [name, setName] = useState(localStorage.getItem("name") || currentUser?.name || "");
-  const [email, setEmail] = useState(localStorage.getItem("email") || currentUser?.email || "");
+  const [name, setName] = useState(localStorage.getItem('name') || currentUser?.name || "");
+  const [email, setEmail] = useState(localStorage.getItem('email') || currentUser?.email || "");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [orders, setOrders] = useState([]);
 
-  // Save user data to localStorage whenever it changes
+  // Update localStorage when name or email changes
   useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("name", currentUser.name);
-      localStorage.setItem("email", currentUser.email);
+    if (name) {
+      localStorage.setItem('name', name);
     }
-  }, [currentUser]);
+    if (email) {
+      localStorage.setItem('email', email);
+    }
+  }, [name, email]);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -102,10 +104,6 @@ const Profile = () => {
         updateUser(data);
         setPassword("");
         alert("Profile updated successfully!");
-
-        // Persist updated user data to localStorage
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
       } else {
         setError(data.error || "Failed to update profile.");
       }
@@ -281,6 +279,7 @@ const DeleteButton = styled.button`
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
+
   &:hover {
     background-color: darkred;
   }
@@ -294,8 +293,10 @@ const DeleteProfileButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
   margin-top: 2rem;
+
   &:hover {
     background-color: darkred;
   }
 `;
+
 export default Profile;

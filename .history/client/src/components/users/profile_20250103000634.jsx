@@ -298,4 +298,12 @@ const DeleteProfileButton = styled.button`
     background-color: darkred;
   }
 `;
+
+
+
+
+
+
+
+
 export default Profile;

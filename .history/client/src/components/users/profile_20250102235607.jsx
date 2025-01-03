@@ -4,22 +4,34 @@ import styled from "styled-components";
 
 const Profile = () => {
   const { currentUser, updateUser } = useOutletContext();
-  const [name, setName] = useState(localStorage.getItem("name") || currentUser?.name || "");
-  const [email, setEmail] = useState(localStorage.getItem("email") || currentUser?.email || "");
+  const [name, setName] = useState(currentUser?.name || "");
+  const [email, setEmail] = useState(currentUser?.email || "");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [orders, setOrders] = useState([]);
 
-  // Save user data to localStorage whenever it changes
+  // Fetch current user only if it's not set yet
   useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("name", currentUser.name);
-      localStorage.setItem("email", currentUser.email);
+    if (!currentUser) {
+      const fetchCurrentUser = async () => {
+        const storedUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (storedUser) {
+          updateUser(storedUser); // Update the context with the stored user
+        }
+      };
+      
+      fetchCurrentUser();
     }
-  }, [currentUser]);
+  }, [currentUser, updateUser]); // Dependency array: runs only if currentUser is null
 
+  // Fetch orders when the user is available
   useEffect(() => {
     const fetchOrders = async () => {
+      if (!currentUser) {
+        setError("User is not logged in.");
+        return;
+      }
+      
       try {
         const response = await fetch("/api/v1/orders");
         if (!response.ok) {
@@ -31,12 +43,13 @@ const Profile = () => {
         setOrders(data.orders || []);
       } catch (err) {
         setError(err.message || "An error occurred while fetching orders.");
-        console.error("Fetch Orders Error:", err);
       }
     };
 
-    fetchOrders();
-  }, []);
+    if (currentUser) {
+      fetchOrders();
+    }
+  }, [currentUser]); // Only runs if currentUser is available
 
   const handleDeleteProfile = async () => {
     try {
@@ -56,9 +69,9 @@ const Profile = () => {
 
       alert("Profile deleted successfully!");
       window.location.href = "/";
+
     } catch (err) {
       setError(err.message || "An error occurred while deleting your profile.");
-      console.error("Delete Profile Error:", err);
     }
   };
 
@@ -77,7 +90,6 @@ const Profile = () => {
       alert("Order deleted successfully!");
     } catch (err) {
       setError(err.message || "An error occurred while deleting the order.");
-      console.error("Delete Order Error:", err);
     }
   };
 
@@ -102,10 +114,6 @@ const Profile = () => {
         updateUser(data);
         setPassword("");
         alert("Profile updated successfully!");
-
-        // Persist updated user data to localStorage
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
       } else {
         setError(data.error || "Failed to update profile.");
       }
@@ -176,6 +184,7 @@ const Profile = () => {
   );
 };
 
+// Styled Components
 const LoadingMessage = styled.p`
   font-size: 1.5rem;
   color: #666;
@@ -278,24 +287,29 @@ const DeleteButton = styled.button`
   background-color: red;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 1.2rem;
+
   &:hover {
     background-color: darkred;
   }
 `;
 
 const DeleteProfileButton = styled.button`
-  background-color: red;
+  background-color: darkred;
   color: white;
   border: none;
-  padding: 14px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 2rem;
+
   &:hover {
-    background-color: darkred;
+    background-color: red;
   }
 `;
+
 export default Profile;

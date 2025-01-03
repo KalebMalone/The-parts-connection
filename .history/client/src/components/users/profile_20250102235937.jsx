@@ -4,21 +4,24 @@ import styled from "styled-components";
 
 const Profile = () => {
   const { currentUser, updateUser } = useOutletContext();
-  const [name, setName] = useState(localStorage.getItem("name") || currentUser?.name || "");
-  const [email, setEmail] = useState(localStorage.getItem("email") || currentUser?.email || "");
+  const [name, setName] = useState(currentUser?.name || "");
+  const [email, setEmail] = useState(currentUser?.email || "");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [orders, setOrders] = useState([]);
 
-  // Save user data to localStorage whenever it changes
   useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("name", currentUser.name);
-      localStorage.setItem("email", currentUser.email);
-    }
-  }, [currentUser]);
+    const storedUser = sessionStorage.getItem("currentUser") || localStorage.getItem("currentUser");
 
-  useEffect(() => {
+    // If user is not found in session or localStorage, redirect to login
+    if (!storedUser) {
+      setError("User is not logged in.");
+      return;
+    }
+
+    const userData = JSON.parse(storedUser);
+
+    // Fetch orders if the user is logged in
     const fetchOrders = async () => {
       try {
         const response = await fetch("/api/v1/orders");
@@ -56,6 +59,7 @@ const Profile = () => {
 
       alert("Profile deleted successfully!");
       window.location.href = "/";
+
     } catch (err) {
       setError(err.message || "An error occurred while deleting your profile.");
       console.error("Delete Profile Error:", err);
@@ -102,10 +106,6 @@ const Profile = () => {
         updateUser(data);
         setPassword("");
         alert("Profile updated successfully!");
-
-        // Persist updated user data to localStorage
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
       } else {
         setError(data.error || "Failed to update profile.");
       }
@@ -221,14 +221,14 @@ const Input = styled.input`
   transition: border-color 0.3s ease;
 
   &:focus {
-    border-color: rgb(64, 193, 172);
+    border-color:rgb(64, 193, 172);
     outline: none;
   }
 `;
 
 const Button = styled.button`
   padding: 12px;
-  background-color: rgb(64, 193, 172);
+  background-color:rgb(64, 193, 172);
   color: white;
   border: none;
   border-radius: 6px;
@@ -237,7 +237,7 @@ const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgb(64, 193, 172);
+    background-color:rgb(64, 193, 172);
   }
 `;
 
@@ -281,6 +281,7 @@ const DeleteButton = styled.button`
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
+
   &:hover {
     background-color: darkred;
   }
@@ -294,8 +295,10 @@ const DeleteProfileButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
   margin-top: 2rem;
+
   &:hover {
     background-color: darkred;
   }
 `;
+
 export default Profile;
