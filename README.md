@@ -1,4 +1,4 @@
-# Car Parts App
+# The Parts Connection
 
 Welcome to the **The Parts Connection**! This application allows users to browse and purchase car parts online. It is built with **Flask** for the backend and **React** for the frontend.
 
