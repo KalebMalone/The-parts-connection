@@ -14,7 +14,6 @@ Welcome to the **The Parts Connection**! This application allows users to browse
 
 - **Backend:** Flask, SQLAlchemy, Flask-Migrate
 - **Frontend:** React, Styled Components
-- **Database:** SQLite
 
 ## Setup Instructions
 
