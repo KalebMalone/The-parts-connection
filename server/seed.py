@@ -59,6 +59,7 @@ with app.app_context():
 
     # Seed data for Products (Enhanced AUDI parts with longer descriptions)
     product_data = [
+        # Category 1: Engine Parts
         {
             "category_id": 1, 
             "name": "AUDI Performance Oil Cooler Kit", 
@@ -68,9 +69,22 @@ with app.app_context():
                 "oil cooler kit. Designed specifically for AUDI A3, A4, and Q7 models, this kit "
                 "ensures enhanced oil cooling for better engine reliability during high-performance driving."
             ), 
-            "image_url": "image/performance_oil_cooler.jpg", 
+            "image_url": "engine1.png", 
             "stock_quantity": 30
         },
+        {
+            "category_id": 1, 
+            "name": "AUDI Engine Air Intake System", 
+            "price": 499.99, 
+            "description": (
+                "Boost engine efficiency and performance with this advanced air intake system. "
+                "Designed for AUDI A5 and RS7, it ensures maximum airflow for improved power."
+            ), 
+            "image_url": "engine2.png", 
+            "stock_quantity": 25
+        },
+
+        # Category 2: Body Parts
         {
             "category_id": 2, 
             "name": "AUDI Carbon Fiber Rear Diffuser", 
@@ -80,9 +94,22 @@ with app.app_context():
                 "rear diffuser. Engineered for AUDI RS7 and S-line models, this diffuser adds a premium "
                 "touch while improving airflow and stability at high speeds."
             ), 
-            "image_url": "image/carbon_fiber_diffuser.jpg", 
+            "image_url": "body1.png", 
             "stock_quantity": 20
         },
+        {
+            "category_id": 2, 
+            "name": "AUDI Custom Side Skirts", 
+            "price": 699.99, 
+            "description": (
+                "Enhance your car's style and aerodynamics with these custom-fit side skirts. "
+                "Designed for AUDI Q5 and Q7 models, they add a sporty and sleek profile."
+            ), 
+            "image_url": "body2.png", 
+            "stock_quantity": 30
+        },
+
+        # Category 3: Suspension & Steering
         {
             "category_id": 3, 
             "name": "AUDI Adjustable Coilover Suspension", 
@@ -92,8 +119,91 @@ with app.app_context():
                 "Tailored for AUDI A5 and Q5 models, the kit allows you to customize ride height and damping, "
                 "offering unparalleled control on any road condition."
             ), 
-            "image_url": "image/coilover_suspension.jpg", 
+            "image_url": "sus1.png", 
             "stock_quantity": 15
+        },
+        {
+            "category_id": 3, 
+            "name": "AUDI Power Steering Pump", 
+            "price": 349.99, 
+            "description": (
+                "Maintain smooth and effortless steering with this high-quality power steering pump. "
+                "Compatible with AUDI A3 and Q7 models."
+            ), 
+            "image_url": "sus2.png", 
+            "stock_quantity": 40
+        },
+
+        # Category 4: Interior Accessories
+        {
+            "category_id": 4, 
+            "name": "AUDI Premium Leather Seat Covers", 
+            "price": 349.99, 
+            "description": (
+                "Protect and enhance your vehicle's interior with these premium leather seat covers. "
+                "Custom fit for AUDI A3, A4, and Q7 models, they add a luxurious touch while ensuring durability."
+            ), 
+            "image_url": "int1.png", 
+            "stock_quantity": 50
+        },
+        {
+            "category_id": 4, 
+            "name": "AUDI All-Weather Floor Mats", 
+            "price": 129.99, 
+            "description": (
+                "Keep your car's interior clean and protected with these durable all-weather floor mats. "
+                "Custom fit for AUDI Q5 and RS7 models."
+            ), 
+            "image_url": "int2.png", 
+            "stock_quantity": 60
+        },
+
+        # Category 5: Exterior Accessories
+        {
+            "category_id": 5, 
+            "name": "AUDI Roof Rack System", 
+            "price": 899.99, 
+            "description": (
+                "Expand your cargo capacity with this sturdy and aerodynamic roof rack system. "
+                "Designed for AUDI Q5 and Q7 models, it’s perfect for outdoor adventures or extra luggage."
+            ), 
+            "image_url": "ext1.png", 
+            "stock_quantity": 25
+        },
+        {
+            "category_id": 5, 
+            "name": "AUDI Chrome Mirror Caps", 
+            "price": 199.99, 
+            "description": (
+                "Upgrade your car's exterior look with these high-quality chrome mirror caps. "
+                "Designed to fit AUDI A5 and RS7 models for a sleek, polished finish."
+            ), 
+            "image_url": "ext2.png", 
+            "stock_quantity": 35
+        },
+
+        # Category 6: Electrical Parts
+        {
+            "category_id": 6, 
+            "name": "AUDI LED Headlight Kit", 
+            "price": 799.99, 
+            "description": (
+                "Upgrade your lighting with this high-performance LED headlight kit. "
+                "Specifically designed for AUDI A5 and RS7 models, it provides brighter and more focused illumination."
+            ), 
+            "image_url": "elec1.png", 
+            "stock_quantity": 40
+        },
+        {
+            "category_id": 6, 
+            "name": "AUDI Advanced Battery Management System", 
+            "price": 549.99, 
+            "description": (
+                "Ensure optimal battery performance with this advanced management system. "
+                "Compatible with AUDI A4 and Q7 models for reliable electrical operations."
+            ), 
+            "image_url": "elec2.png", 
+            "stock_quantity": 20
         }
     ]
 
